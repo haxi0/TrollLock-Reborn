@@ -9,6 +9,8 @@ TrollLock tweak (https://github.com/verygenericname/TrollLock) port for iOS 15 a
 3. Press the first option
 4. Choose the folder, mostly it's the third one for notched devices and the first one should be for iPhone 14 Pro and Pro Max.
 
+**Might not work for the first time! Try a few times**
+
 # Credits
 - https://github.com/zhuowei (MacDirtyCow exploit)
 - https://github.com/verygenericname (Idea, assets, help)
