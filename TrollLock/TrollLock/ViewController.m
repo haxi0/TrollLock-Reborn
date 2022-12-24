@@ -86,13 +86,25 @@
         [alert addAction:firstAction];
         [self presentViewController:alert animated:YES completion:nil];
     }];
-    UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"Cancel"
+    UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"Respring"
+                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIApplication *sharedApplication = [UIApplication sharedApplication];
+        NSArray<UIWindow *> *windows = sharedApplication.windows;
+        UIWindow *window = windows.firstObject;
+        if (window) {
+            while (true) {
+                [window snapshotViewAfterScreenUpdates:NO];
+            }
+        }
+    }];
+    UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
     }];
     
     [alert addAction:firstAction];
     [alert addAction:secondAction];
     [alert addAction:thirdAction];
+    [alert addAction:fourthAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
