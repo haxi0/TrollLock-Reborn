@@ -8,6 +8,7 @@ TrollLock tweak (https://github.com/verygenericname/TrollLock) port for iOS 15 a
 2. Press the start button
 3. Press the first option
 4. Choose the folder, mostly it's the third one for notched devices and the first one should be for iPhone 14 Pro and Pro Max.
+5. The app should crash, that's fine. If you are on iOS 16.1 and lower, re-open the app and press the Respring button. If you are on iOS 16.1 and up, follow the video on my Discord server on how to Respring.
 
 **Might not work for the first time! Try a few times, and each time respring afterwards**
 
