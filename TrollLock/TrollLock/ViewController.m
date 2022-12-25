@@ -74,7 +74,7 @@
         
         [self presentViewController:alert animated:YES completion:nil];
     }];
-    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Create folder, TrollStore only"
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Create the folder for me"
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         NSString *filepath = [[NSBundle mainBundle] pathForResource:@"TrollLock" ofType:@"zip"];
         [SSZipArchive unzipFileAtPath:filepath toDestination:@"/var/mobile/Media"];
