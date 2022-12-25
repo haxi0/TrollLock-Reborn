@@ -9,6 +9,8 @@
 #import "poc.h"
 #import <ZipArchive.h>
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface ViewController ()
 
 @end
@@ -102,9 +104,15 @@
     }];
     
     [alert addAction:firstAction];
-    [alert addAction:secondAction];
-    [alert addAction:thirdAction];
     [alert addAction:fourthAction];
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"16.1")) {
+        [alert addAction:thirdAction];
+    }
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"15.5")) {
+        [alert addAction:secondAction];
+    }
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -115,6 +123,7 @@
     NSString *fullversion = [versionText stringByAppendingString:version];
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *URL = [NSURL URLWithString:@"https://discord.gg/4EFEYnFb7x"];
+    NSURL *URL2 = [NSURL URLWithString:@"https://github.com/ZipArchive/ZipArchive"];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:fullversion
                                                                    message:@"Made with ♡ by Nathan & haxi0"
@@ -130,9 +139,18 @@
             }
         }];
     }];
+    UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"ZipArchive Project"
+                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [application openURL:URL2 options:@{} completionHandler:^(BOOL success) {
+            if (success) {
+                NSLog(@"Opened the ZipArchive URL!");
+            }
+        }];
+    }];
     
     [alert addAction:firstAction];
     [alert addAction:secondAction];
+    [alert addAction:thirdAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
