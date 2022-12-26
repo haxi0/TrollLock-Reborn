@@ -10,6 +10,7 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *Active;
+@property (nonatomic, weak) IBOutlet UILabel *Warning;
 
 @end
 

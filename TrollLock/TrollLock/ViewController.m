@@ -32,6 +32,7 @@
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca"
                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            self->_Warning.hidden = false;
             self->_Active.hidden = false;
             NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
             NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
@@ -356,8 +357,8 @@
                                                                    withString:troll40];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSLog(@"downloading a fresh copy of main.caml");
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
@@ -383,6 +384,7 @@
         }];
         UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca"
                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            self->_Warning.hidden = false;
             self->_Active.hidden = false;
             NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
             NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
@@ -707,8 +709,8 @@
                                                                    withString:troll40];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSLog(@"downloading a fresh copy of main.caml");
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
@@ -734,6 +736,7 @@
         }];
         UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca"
                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            self->_Warning.hidden = false;
             self->_Active.hidden = false;
             NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
             NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
@@ -1058,8 +1061,8 @@
                                                                    withString:troll40];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSLog(@"downloading a fresh copy of main.caml");
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
@@ -1073,7 +1076,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [urlData writeToFile:filePath atomically:YES];
                         [fileContents writeToFile:filePath atomically:YES];
-                        NSLog(@"File Saved!");
+                        NSLog(@"yay! success");
                     });
                 }
                 
@@ -1085,6 +1088,7 @@
         }];
         UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca"
                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            self->_Warning.hidden = false;
             self->_Active.hidden = false;
             NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
             NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
@@ -1409,8 +1413,8 @@
                                                                    withString:troll40];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSLog(@"downloading a fresh copy of main.caml");
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
@@ -1436,6 +1440,7 @@
         }];
         UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca"
                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            self->_Warning.hidden = false;
             self->_Active.hidden = false;
             NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
             NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
@@ -1760,8 +1765,8 @@
                                                                    withString:troll40];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSLog(@"downloading a fresh copy of main.caml");
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
