@@ -357,7 +357,7 @@
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"Downloading Started");
-                NSString *urlToDownload = @"https://cdn.discordapp.com/attachments/969879614379921418/1056754877696585808/main.caml";
+                NSString *urlToDownload = @"https://raw.githubusercontent.com/BomberFish/TrollLock-Reborn-gh-actions/patch-2/main.caml";
                 NSURL  *url = [NSURL URLWithString:urlToDownload];
                 NSData *urlData = [NSData dataWithContentsOfURL:url];
                 if ( urlData )
