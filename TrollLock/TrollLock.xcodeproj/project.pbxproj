@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		597F69C6295A5F7400E9DDF3 /* TrollPrepare.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F69C5295A5F7300E9DDF3 /* TrollPrepare.m */; };
 		6D4EEB3D2956C1C300FD41F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D4EEB2E2956C1C300FD41F6 /* Assets.xcassets */; };
 		6D4EEB3E2956C1C300FD41F6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4EEB302956C1C300FD41F6 /* ViewController.m */; };
 		6D4EEB3F2956C1C300FD41F6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4EEB312956C1C300FD41F6 /* SceneDelegate.m */; };
@@ -59,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		597F69C4295A5F7300E9DDF3 /* TrollPrepare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrollPrepare.h; sourceTree = "<group>"; };
+		597F69C5295A5F7300E9DDF3 /* TrollPrepare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrollPrepare.m; sourceTree = "<group>"; };
 		6D31A8B729522EEE00A6D3D6 /* TrollLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrollLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D4EEB2D2956C1C300FD41F6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D4EEB2E2956C1C300FD41F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 		6D4EEB2C2956C1C300FD41F6 /* TrollLock */ = {
 			isa = PBXGroup;
 			children = (
+				597F69C4295A5F7300E9DDF3 /* TrollPrepare.h */,
+				597F69C5295A5F7300E9DDF3 /* TrollPrepare.m */,
 				6DACDC922958C90400725A63 /* trollformation1.png */,
 				6DACDC942958C90400725A63 /* trollformation2.png */,
 				6DACDC912958C90400725A63 /* trollformation3.png */,
@@ -322,6 +327,7 @@
 				6D4EEB442956C1C300FD41F6 /* AppDelegate.m in Sources */,
 				6D4EEB452956C1C300FD41F6 /* poc.m in Sources */,
 				6D4EEB3E2956C1C300FD41F6 /* ViewController.m in Sources */,
+				597F69C6295A5F7400E9DDF3 /* TrollPrepare.m in Sources */,
 				6D4EEB422956C1C300FD41F6 /* main.m in Sources */,
 				6D4EEB3F2956C1C300FD41F6 /* SceneDelegate.m in Sources */,
 			);
