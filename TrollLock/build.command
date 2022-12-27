@@ -32,7 +32,6 @@ if [ -e "$TARGET_APP/embedded.mobileprovision" ]; then
     rm -rf "$TARGET_APP/embedded.mobileprovision"
 fi
 
-ldid -S"$WORKING_LOCATION/entitlements.plist" "$TARGET_APP/$APPLICATION_NAME"
 mkdir Payload
 cp -r TrollLock.app Payload/TrollLock.app
 zip -vr TrollLock.ipa Payload
