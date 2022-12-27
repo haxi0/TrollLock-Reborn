@@ -11,6 +11,7 @@
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *Active;
 @property (nonatomic, weak) IBOutlet UILabel *Warning;
+@property (nonatomic, weak) IBOutlet UISwitch *media;
 
 @end
 
