@@ -845,7 +845,7 @@ void overwriteLock(NSString *model, BOOL *media, NSString *url) {
                 NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
                 NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
                 const char *model_path = dirName.UTF8String;
-                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
                 g_arg_overwrite_file_path = model_path;
                 unaligned_copy_switch_race();
             }
@@ -899,7 +899,7 @@ void overwriteLock(NSString *model, BOOL *media, NSString *url) {
                 NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
                 NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
                 const char *model_path = dirName.UTF8String;
-                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml";
                 g_arg_overwrite_file_path = model_path;
                 unaligned_copy_switch_race();
             }
@@ -1378,7 +1378,7 @@ void overwriteLock(NSString *model, BOOL *media, NSString *url) {
                 NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
                 NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
                 const char *model_path = dirName.UTF8String;
-                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml";
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml";
                 g_arg_overwrite_file_path = model_path;
                 unaligned_copy_switch_race();
             }
@@ -1423,7 +1423,7 @@ void overwriteLock(NSString *model, BOOL *media, NSString *url) {
                 NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
                 NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
                 const char *model_path = dirName.UTF8String;
-                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml";
+                g_arg_target_file_path = "/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml";
                 g_arg_overwrite_file_path = model_path;
                 unaligned_copy_switch_race();
             }
