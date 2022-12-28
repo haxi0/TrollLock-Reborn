@@ -33,11 +33,11 @@
             [[NSFileManager defaultManager] removeItemAtPath:[folderPath stringByAppendingPathComponent:file] error:&error];
         }
         if ([self->_media isOn]) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please enter the URL for your custom .zip file" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please enter the URL to .zip" message:@"" preferredStyle:UIAlertControllerStyleAlert];
             [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                textField.placeholder = @"URL Link to .zip file";
+                textField.placeholder = @"URL to .zip";
             }];
-            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
                 struct utsname systemInfo;
@@ -59,7 +59,7 @@
         }
     }];
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Respring"
-                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         UIApplication *sharedApplication = [UIApplication sharedApplication];
         NSArray<UIWindow *> *windows = sharedApplication.windows;
         UIWindow *window = windows.firstObject;
@@ -100,27 +100,15 @@
     }];
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Visit the Discord Server"
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
-            if (success) {
-                NSLog(@"Opened the Discord invite URL!");
-            }
-        }];
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {}];
     }];
     UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"ZipArchive Project"
-                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL2 options:@{} completionHandler:^(BOOL success) {
-            if (success) {
-                NSLog(@"Opened the ZipArchive URL!");
-            }
-        }];
+                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [application openURL:URL2 options:@{} completionHandler:^(BOOL success) {}];
     }];
     UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"MacDirtyCow Exploit"
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL3 options:@{} completionHandler:^(BOOL success) {
-            if (success) {
-                NSLog(@"Opened the MacDirtyCow URL!");
-            }
-        }];
+        [application openURL:URL3 options:@{} completionHandler:^(BOOL success) {}];
     }];
     
     [alert addAction:firstAction];

