@@ -37,25 +37,72 @@
             [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.placeholder = @"URL to .zip";
             }];
-            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                struct utsname systemInfo;
-                uname(&systemInfo);
-                NSString* code = [NSString stringWithCString:systemInfo.machine
-                                                    encoding:NSUTF8StringEncoding];
-                overwriteLock(code, true, [[alertController textFields][0] text]);
+                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
             }];
-            [alertController addAction:confirmAction];
+            UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
+            }];
+            UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
+            }];
+            UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
+            }];
+            UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
+            }];
+            [alertController addAction:firstAction];
+            [alertController addAction:secondAction];
+            [alertController addAction:thirdAction];
+            [alertController addAction:fourthAction];
+            [alertController addAction:fifthAction];
             [self presentViewController:alertController animated:YES completion:nil];
         } else {
-            self->_Active.hidden = false;
-            self->_Warning.hidden = false;
-            struct utsname systemInfo;
-            uname(&systemInfo);
-            NSString* code = [NSString stringWithCString:systemInfo.machine
-                                                encoding:NSUTF8StringEncoding];
-            overwriteLock(code, false, @"");
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Select a folder"
+                                                                           message:@"Each one is different for all devices. Try all of them and if you don't succeed, join my Discord server for support."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
+            }];
+            UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
+            }];
+            UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
+            }];
+            UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
+            }];
+            UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_Active.hidden = false;
+                self->_Warning.hidden = false;
+                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
+            }];
+            [alertController addAction:firstAction];
+            [alertController addAction:secondAction];
+            [alertController addAction:thirdAction];
+            [alertController addAction:fourthAction];
+            [alertController addAction:fifthAction];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Respring"
@@ -70,9 +117,7 @@
         }
     }];
     UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-    }];
-    
+                                                          style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:firstAction];
     [alert addAction:thirdAction];
     
@@ -96,19 +141,18 @@
                                                                    message:@"Made with ♡ by Nathan & haxi0. Thanks to: zhuowei, MR X, k.y., Finny, bonnie, rxfe_, PrimePlatypus, Nightinq and apricot."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-    }];
+                                                          style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Visit the Discord Server"
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL options:@{} completionHandler:^(BOOL success) {}];
+        [application openURL:URL options:@{} completionHandler:nil];
     }];
     UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"ZipArchive Project"
                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL2 options:@{} completionHandler:^(BOOL success) {}];
+        [application openURL:URL2 options:@{} completionHandler:nil];
     }];
     UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"MacDirtyCow Exploit"
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [application openURL:URL3 options:@{} completionHandler:^(BOOL success) {}];
+        [application openURL:URL3 options:@{} completionHandler:nil];
     }];
     
     [alert addAction:firstAction];
@@ -118,7 +162,6 @@
     
     [self presentViewController:alert animated:YES completion:nil];
 }
-
 
 
 
