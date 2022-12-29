@@ -9,5 +9,5 @@
 #define poc_h
 
 #include <stdio.h>
-void overwriteLock(NSString *model, BOOL *media, NSString *url);
+void overwriteLock(BOOL *media, NSString *url, NSString *path);
 #endif /* poc_h */
