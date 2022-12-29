@@ -8,6 +8,6 @@
 #ifndef TrollPrepare_h
 #define TrollPrepare_h
 
-void trollPrepare(void);
+void trollPrepare(bool media, NSString *url, NSString *path);
 
 #endif /* TrollPrepare_h */

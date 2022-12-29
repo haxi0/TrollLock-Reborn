@@ -6,7 +6,7 @@
 //
 
 #import "ViewController.h"
-#import "poc.h"
+#import "TrollPrepare.h"
 #import <sys/utsname.h>
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
@@ -40,27 +40,27 @@
             UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
+                trollPrepare(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
             }];
             UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
+                trollPrepare(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
             }];
             UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
+                trollPrepare(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
             }];
             UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
+                trollPrepare(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
             }];
             UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
+                trollPrepare(true, [[alertController textFields][0] text], @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
             }];
             [alertController addAction:firstAction];
             [alertController addAction:secondAction];
@@ -75,27 +75,27 @@
             UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"lock@3x-d73.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
+                trollPrepare(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-d73.ca/main.caml");
             }];
             UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"lock@3x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
+                trollPrepare(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-896h.ca/main.caml");
             }];
             UIAlertAction *thirdAction = [UIAlertAction actionWithTitle:@"lock@3x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
+                trollPrepare(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@3x-812h.ca/main.caml");
             }];
             UIAlertAction *fourthAction = [UIAlertAction actionWithTitle:@"lock@2x-896h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
+                trollPrepare(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-896h.ca/main.caml");
             }];
             UIAlertAction *fifthAction = [UIAlertAction actionWithTitle:@"lock@2x-812h.ca" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self->_Active.hidden = false;
                 self->_Warning.hidden = false;
-                overwriteLock(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
+                trollPrepare(false, @"", @"/System/Library/PrivateFrameworks/SpringBoardUIServices.framework/lock@2x-812h.ca/main.caml");
             }];
             [alertController addAction:firstAction];
             [alertController addAction:secondAction];
