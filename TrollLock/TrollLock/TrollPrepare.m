@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ZipArchive.h>
-#import "poc.h";
+#import "poc.h"
 
 static NSString *fileContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
  <caml xmlns=\"http://www.apple.com/CoreAnimation/1.0\">\
