@@ -20,8 +20,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#import <ZipArchive.h>
-
 #define T_QUIET
 #define T_EXPECT_MACH_SUCCESS(a, b)
 #define T_EXPECT_MACH_ERROR(a, b, c)
