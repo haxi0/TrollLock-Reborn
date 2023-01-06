@@ -9,5 +9,5 @@
 #define poc_h
 
 #include <stdio.h>
-void overwriteLock(BOOL *media, NSString *url, NSString *path);
+void trollLockCopy(NSString *sourceFilePath, NSString *targetFilePath);
 #endif /* poc_h */
